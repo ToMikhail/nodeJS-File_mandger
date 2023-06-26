@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-file_manger",
+  "version": "1.0.0",
+  "description": "file manager",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToMikhail/nodeJS-File_manger.git"
+  },
+  "author": "Mikhail Toustsik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ToMikhail/nodeJS-File_manger/issues"
+  },
+  "homepage": "https://github.com/ToMikhail/nodeJS-File_manger#readme"
+}
