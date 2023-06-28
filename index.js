@@ -75,12 +75,11 @@ const start = async () => {
     if (line.startsWith('cat ')) {
       const filePath = `${line.split(' ')[1]}`;
       const readableStream = fs.createReadStream(filePath, 'utf8');
-
       readableStream.pipe(output);
-    } 
+    }
 
     if (line.startsWith('add ')) {
-
+      addDirectory(line);
     }
 
     if (line.startsWith('rn ')) {
@@ -116,5 +115,21 @@ const pathMaker = (path, currentDir) => {
     console.log(`You are currently in ${currentDir}`)
   } catch (err) {
     console.error(`Enter correct path`);
+  }
+}
+
+const addDirectory = (line) => {
+  const fileName = `${line.split(' ')[1]}`;
+  const directory = path.join(cwd(), fileName)
+  try {
+    if (fs.existsSync(directory)) {
+      throw new Error('File is existing');
+    }
+    fs.writeFile(directory, '', function (err) {
+      if (err) console.error(err);
+      console.log('File is created');
+    })
+  } catch (error) {
+    console.error(error);
   }
 }
