@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs, { copyFile } from 'fs';
 import { chdir, cwd } from 'node:process';
 import { readdir } from 'node:fs/promises';
 import path, { dirname } from 'path';
@@ -83,16 +83,16 @@ const start = async () => {
     }
 
     if (line.startsWith('rn ')) {
-
+      renameFile(line);
     }
     if (line.startsWith('cp ')) {
-
+      copyDirectory(line);
     }
     if (line.startsWith('mv ')) {
-
+      moveFile(line);
     }
     if (line.startsWith('rm ')) {
-
+      deleteFile(line);
     }
 
     else {
@@ -131,5 +131,56 @@ const addDirectory = (line) => {
     })
   } catch (error) {
     console.error(error);
+  }
+}
+
+const renameFile = (line) => {
+  try {
+    const oldFilePath = line.split(' ')[1];
+    const newFilePath = line.split(' ')[2];
+    fs.rename(oldFilePath, newFilePath, (err) => {
+      if (err) console.log(err);
+      console.log('File is renamed');
+    });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const copyDirectory = (line) => {
+  try {
+    const filePath = line.split(' ')[1];
+    const newFilePath = line.split(' ')[2];
+    fs.copyFile(filePath, newFilePath, (err) => {
+      if (err) console.log(err);
+      console.log('File is created');
+    });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const moveFile = (line) => {
+  try {
+    const oldFilePath = line.split(' ')[1];
+    const newFilePath = line.split(' ')[2];
+    fs.rename(oldFilePath, newFilePath, (err) => {
+      if (err) console.log(err);
+      else console.log('File is moved');
+    });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const deleteFile = (line) => {
+  try {
+    const filePath = line.split(' ')[1];
+    fs.unlink(filePath, (err) => {
+      if (err) console.log(err);
+      else console.log('File is removed');
+    });
+  } catch (error) {
+    console.log(error)
   }
 }
